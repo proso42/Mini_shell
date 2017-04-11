@@ -1,0 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   progress_bar.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/04/07 13:41:27 by proso             #+#    #+#             */
+/*   Updated: 2017/04/08 11:52:04 by proso            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <dirent.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/dir.h>
+#include "Includes/libft.h"
+
+void	open_sources(char *path, int *total, int *nb)
+{
+	DIR				*dirp;
+	struct dirent	*buf;
+	int				size;
+
+	dirp = opendir(path);
+	while ((buf = readdir(dirp)))
+	{
+		size = (int)ft_strlen(buf->d_name) - 1;
+		if (buf->d_name[size] == 'o' && buf->d_name[size - 1] == '.')
+			(*nb)++;
+		if (buf->d_name[size] == 'c' && buf->d_name[size - 1] == '.')
+			(*total)++;
+	}
+	closedir(dirp);
+}
+
+int		main(void)
+{
+	DIR				*dirp;
+	struct dirent	*buf;
+	int				nb;
+	int				total;
+
+	nb = 0;
+	total = 0;
+	open_sources(".", &total, &nb);
+	open_sources("Libprintf/", &total, &nb);
+	total -= nb;
+	ft_printf("{yellow}{bold}Progress :{res}");
+	ft_printf("{GREEN}{bold}%*s{res}", nb, "");
+	ft_printf("{RED}{bold}%*s{res}\n", total, "");
+	return (0);
+}
