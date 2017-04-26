@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -19,7 +20,13 @@ char	*ft_strjoinfree(char const *s1, char const *s2, int mode)
 	if (!s1 && !s2)
 		return (NULL);
 	if (s1 == NULL || s2 == NULL)
-		return (s1 ? ft_strdup(s1) : ft_strdup(s2));
+	{
+		str = (s1) ? ft_strdup (s2) : ft_strdup(s2);
+		((mode == 1 || mode > 2) ? ft_strdel((char**)&s1) : 0);
+		if (mode >= 2)
+			ft_strdel((char**)&s2);
+		return (str);
+	}
 	if (!(str = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
 		return (NULL);
 	ft_strcpy(str, s1);

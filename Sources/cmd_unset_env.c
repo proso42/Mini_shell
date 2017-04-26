@@ -26,10 +26,16 @@ void	del_elem(t_list **begin_list, t_list *elem)
 				current = current->next;
 			current->next = elem->next;
 		}
+		else
+		{
+			current = *begin_list;
+			*begin_list = current->next;
+		}
 		ft_strdel(&(((t_env*)(elem->data))->env_complete));
 		ft_strdel(&(((t_env*)(elem->data))->env_name));
 		ft_strdel(&(((t_env*)(elem->data))->env_value));
 		free(elem->data);
+		free(elem);
 	}
 }
 

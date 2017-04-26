@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_list_space.c                              :+:      :+:    :+:   */
+/*   ft_is_whitespace.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/10 18:15:02 by proso             #+#    #+#             */
-/*   Updated: 2017/04/10 18:16:03 by proso            ###   ########.fr       */
+/*   Created: 2017/04/12 22:49:28 by proso             #+#    #+#             */
+/*   Updated: 2017/04/12 22:59:17 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
 
-void	ft_print_list_space(t_list *begin_list)
+int		ft_is_whitespace(char c)
 {
-	t_list	*current;
-
-	current = begin_list;
-	if (begin_list)
-	{
-		while (current)
-		{
-			if (current->data)
-			{
-				ft_putstr(current->data);
-				write(1, " ", 1);
-			}
-			current = current->next;
-		}
-	}
+	return (c == ' ' || c == '\n' || c == '\t' || c == '\v' || c == '\r');
 }

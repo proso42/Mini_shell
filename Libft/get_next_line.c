@@ -31,7 +31,7 @@ int		update_str(t_line **maillon, char **line)
 	}
 	else if (S[i] == '\0')
 	{
-		S = ft_strnew(0);
+		ft_strdel(&S);
 		if (i == 0)
 		{
 			(*maillon)->fd = 0;
@@ -69,22 +69,22 @@ int		read_line(const int fd, t_line **list, t_line **maillon)
 	char	*str;
 	char	*tmp;
 	int		ret;
-    int        stop;
+	int		stop;
 
-    stop = 0;
+	stop = 0;
 	str = ft_strnew(1);
-    while (!stop && (ret = read(fd, buff, BUFF_SIZE)))
-    {
-        if (ret == -1)
-            return (-1);
-        buff[ret] = '\0';
-        tmp = ft_strdup(str);
-        ft_strdel(&str);
-        str = ft_strjoin(tmp, buff);
-        ft_strdel(&tmp);
-        if (fd == 0)
-            stop = 1;
-    }
+	while (!stop && (ret = read(fd, buff, BUFF_SIZE)))
+	{
+		if (ret == -1)
+			return (-1);
+		buff[ret] = '\0';
+		tmp = ft_strdup(str);
+		ft_strdel(&str);
+		str = ft_strjoin(tmp, buff);
+		ft_strdel(&tmp);
+		if (fd == 0)
+			stop = 1;
+	}
 	*maillon = create_maillon(fd, list, str);
 	ft_strdel(&str);
 	return (ret);

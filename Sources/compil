@@ -1,2 +1,0 @@
-clear
-gcc -Wall -Werror -Wextra *.c ../Libft/libft.a

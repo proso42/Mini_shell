@@ -12,16 +12,11 @@
 
 #include "../Includes/mini_shell.h"
 
-void	print_prompt(t_info *info)
+void	print_prompt(void)
 {
-	char	*pwd;
+	char	buf[126];
 
-	pwd = get_env_var(info->env_var_list, "PWD");
-	ft_printf("{blue}{bold}");
-	if (!pwd)
-		ft_printf("$> {res}");
-	else
-		ft_printf("%s $> {res}", pwd);
+	ft_printf("{blue}{bold}%s $> {res}", getcwd(buf, 126));
 }
 
 void	print_entry(void)
@@ -43,15 +38,16 @@ int		main(void)
 	info.env_var_list = init_env();
 	info.cmd_list = init_cmd();
 	i = 0;
-	cmd = NULL;
 	print_entry();
 	while (1)
 	{
-		print_prompt(&info);
+		cmd = NULL;
+		print_prompt();
 		if ((get_next_line(0, &cmd)))
 			get_cmd(&info, cmd);
 		else
 			write(1, "\n", 1);
+		ft_strdel(&cmd);
 	}
 	return (0);
 }

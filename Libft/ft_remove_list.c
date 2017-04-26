@@ -20,7 +20,8 @@ void	ft_remove_list(t_list **begin_list)
 	{
 		ft_strdel((char**)&(*begin_list)->data);
 		previous = *begin_list;
-		*begin_list = (*begin_list)->next;
+		*begin_list = previous->next;
+		free(previous);
 	}
 	*begin_list = NULL;
 }

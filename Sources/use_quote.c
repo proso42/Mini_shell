@@ -22,17 +22,17 @@ char	*use_quote(char *arg, int *i)
 	j = 0;
 	tmp = ft_strnew(ft_strlen(arg));
 	(*i)++;
-	while (arg[*i] && arg[*i] != 39)
+	while (arg[*i] && arg[*i] != '\'')
 	{
 		tmp[j] = arg[*i];
 		(*i)++;
 		j++;
-		if (arg[*i] == 39)
+		if (arg[*i] == '\'')
 			quote = 1;
 	}
 	if (!quote && (j || !arg[*i]))
 		tmp = ft_strjoinfree(tmp, recursive_quote(), 3);
-	if (arg[*i] == 39)
+	if (arg[*i] == '\'')
 		(*i)++;
 	return (tmp);
 }

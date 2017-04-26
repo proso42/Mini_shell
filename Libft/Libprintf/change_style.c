@@ -24,7 +24,7 @@ char	*change_style(int x)
 	ft_strcat(str, code);
 	ft_strcat(str, "m");
 	ft_strdel(&code);
-	return (ft_strdup(str));
+	return (str);
 }
 
 int		check_code(char *str)

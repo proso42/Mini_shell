@@ -23,7 +23,6 @@ t_list	*init_cmd(void)
 	ft_push_back(&list, "echo");
 	ft_push_back(&list, "exit");
 	ft_push_back(&list, "cd");
-	ft_push_back(&list, "clear");
 	return (list);
 }
 

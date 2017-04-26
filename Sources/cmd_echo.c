@@ -12,46 +12,46 @@
 
 #include "../Includes/mini_shell.h"
 
-char		*add_str(char *arg, t_list *env_var_list)
+void		init_var3(int *i, int *j, char **str)
+{
+	*i = 0;
+	*j = 0;
+	*str = NULL;
+}
+
+char		*add_str(char *arg, t_list *ev_list)
 {
 	int		i;
 	int		j;
 	char	*str;
 
-	i = 0;
-	j = 0;
-	str = ft_strnew(ft_strlen(arg));
+	init_var3(&i, &j, &str);
 	while (arg[i])
-	{
-		if (arg[i] == '$')
+		if (arg[i] == '$' || arg[i] == '"' || arg[i] == '\'')
 		{
-			str = ft_strjoinfree(str, use_dol(&i, arg, env_var_list), 3);
-			j = i;
-		}
-		else if (arg[i] == '"')
-		{
-			i++;
-		}
-		else if (arg[i] == 39)
-		{
-			str = ft_strjoinfree(str, use_quote(arg, &i), 3);
+			if (arg[i] == '$')
+				str = ft_strjoinfree(str, use_dollard(arg, &i, ev_list), 3);
+			else if (arg[i] == '"')
+				str = ft_strjoinfree(str, use_dbl_quote(arg, &i, ev_list), 3);
+			else
+				str = ft_strjoinfree(str, use_quote(arg, &i), 3);
 			j = i;
 		}
 		else
 		{
-			while (arg[i] && arg[i] != '$' && arg[i] != 39 && arg[i] != '"')
+			while (arg[i] && arg[i] != '$' && arg[i] != '\'' && arg[i] != '"')
 				i++;
-			str = ft_strjoinfree(str, ft_strsub(arg, j, i - j), 3);
+			if (i - j != 0)
+				str = ft_strjoinfree(str, ft_strsub(arg, j, i - j), 3);
 		}
-	}
 	return (str);
 }
 
-void    cmd_echo(t_list *env_var_list, t_list *arg_cmd)
+void		cmd_echo(t_list *env_var_list, t_list *arg_cmd)
 {
 	t_list	*current;
 	t_list	*result;
-	char		*tmp;
+	char	*tmp;
 
 	current = NULL;
 	if (arg_cmd->next)
@@ -61,7 +61,10 @@ void    cmd_echo(t_list *env_var_list, t_list *arg_cmd)
 	while (current)
 	{
 		tmp = add_str(current->data, env_var_list);
-		ft_push_back(&result, ft_strdup(tmp));
+		if (tmp)
+			ft_push_back(&result, ft_strdup(tmp));
+		else
+			ft_push_back(&result, NULL);
 		ft_strdel(&tmp);
 		current = current->next;
 	}

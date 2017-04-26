@@ -12,26 +12,38 @@
 
 #include "../Includes/mini_shell.h"
 
+void	init_var(char **tmp, char **rep, int *quote)
+{
+	*rep = NULL;
+	*tmp = NULL;
+	*quote = 1;
+}
+
 char	*recursive_quote(void)
 {
 	char	*tmp;
 	char	*rep;
-	int		stop;
+	int		quote;
+	int		i;
 
-	rep = NULL;
-	stop = 0;
-	tmp = ft_strnew(0);
-	while (!stop)
+	init_var(&tmp, &rep, &quote);
+	while ((quote % 2))
 	{
 		ft_putstr("quote> ");
 		get_next_line(0, &rep);
-		if ((ft_strchr(rep, 39)))
+		i = 0;
+		while (rep[i])
 		{
-			ft_str_remove_c(rep, 39);
-			stop = 1;
+			quote += (rep[i] == '\'') ? 1 : 0;
+			i++;
 		}
-		tmp = ft_strjoinfree(tmp, "\n", 1);
-		tmp = ft_strjoinfree(tmp, rep, 1);
+		if (quote > 1)
+			rep = ft_str_remove_c(rep, '\'');
+		if (tmp)
+			tmp = ft_strjoinfree(tmp, "\n", 1);
+		else
+			tmp = ft_strdup("\n");
+		tmp = ft_strjoinfree(tmp, rep, 3);
 	}
 	return (tmp);
 }

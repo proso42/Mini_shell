@@ -6,7 +6,7 @@
 #    By: proso <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/25 14:56:04 by proso             #+#    #+#              #
-#    Updated: 2017/04/10 18:16:53 by proso            ###   ########.fr        #
+#    Updated: 2017/04/26 11:25:05 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = libft.a
@@ -20,6 +20,7 @@ SRC = ft_atoi.c \
 	  ft_isascii.c \
 	  ft_isdigit.c \
 	  ft_isprint.c \
+	  ft_is_whitespace.c \
 	  ft_recursive_factorial.c \
 	  ft_recursive_power.c \
 	  ft_replace.c \
@@ -42,6 +43,7 @@ SRC = ft_atoi.c \
 	  ft_print_list_space.c \
 	  ft_list_find.c \
 	  ft_list_size.c \
+	  ft_list_to_tab.c \
 	  ft_get_p_elem.c \
 	  ft_get_elem.c \
 	  ft_memalloc.c \
@@ -71,6 +73,7 @@ SRC = ft_atoi.c \
 	  ft_strcmp.c \
 	  ft_strcpy.c \
 	  ft_strdel.c \
+	  ft_del_tab.c \
 	  ft_strcdup.c \
 	  ft_strdup.c \
 	  ft_strequ.c \

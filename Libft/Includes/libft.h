@@ -6,7 +6,7 @@
 /*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/04/10 18:16:38 by proso            ###   ########.fr       */
+/*   Updated: 2017/04/12 22:59:59 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
+int					ft_is_whitespace(char c);
 int					ft_recursive_factorial(int nb);
 int					ft_recursive_power(int nb, int power);
 char				*ft_replace(char *str, char old, char new);
@@ -67,6 +68,7 @@ void				ft_print_list(t_list *begin_list);
 void				ft_print_list_space(t_list *begin_list);
 t_list				*ft_list_find(t_list *begin_list, char *str);
 int					ft_list_size(t_list *begin_list);
+char				**ft_list_to_tab(t_list *begin_list);
 char    			*ft_get_elem(t_list *begin_list, int i);
 t_list      		*ft_get_p_elem(t_list *begin_list, int i);
 void				*ft_memalloc(size_t size);
@@ -97,6 +99,7 @@ void				ft_strclr(char *s);
 int					ft_strcmp(char const *s1, char const *s2);
 char				*ft_strcpy(char *dst, char const *src);
 void				ft_strdel(char **as);
+void				ft_del_tab(char **args);
 char				*ft_strcdup(char const *str, char c);
 char				*ft_strdup(char const *s1);
 int					ft_strequ(char const *s1, char const *s2);

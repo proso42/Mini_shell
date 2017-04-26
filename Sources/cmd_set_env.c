@@ -12,12 +12,30 @@
 
 #include "../Includes/mini_shell.h"
 
+int		check_bad_char(char *name)
+{
+	int		i;
+
+	i = 1;
+	if (!(ft_isalpha(name[0])) && name[0] != '_')
+		return (1);
+	while (name[i])
+	{
+		if ((is_bad_char(name[i])))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		add_env_var(t_list **env_var_list, char *name, char *value)
 {
 	t_list	*elem;
 	t_env	*var_env;
 
 	elem = NULL;
+	if (!value)
+		return (0);
 	if (!(var_env = (t_env*)malloc(sizeof(t_env))))
 		return (0);
 	var_env->env_name = ft_strdup(name);
@@ -32,13 +50,16 @@ void	edit_env_var(t_list *elem, char *name, char *value)
 {
 	char	*tmp;
 
-	ft_strdel(&(((t_env*)(elem->data))->env_value));
-	ft_strdel(&(((t_env*)(elem->data))->env_complete));
-	((t_env*)(elem->data))->env_value = ft_strdup(value);
-	tmp = ft_strjoin(name, "=");
-	tmp = ft_strjoinfree(tmp, value, 1);
-	((t_env*)(elem->data))->env_complete = ft_strdup(tmp);
-	ft_strdel(&tmp);
+	if (elem && value)
+	{
+		ft_strdel(&(((t_env*)(elem->data))->env_value));
+		ft_strdel(&(((t_env*)(elem->data))->env_complete));
+		((t_env*)(elem->data))->env_value = ft_strdup(value);
+		tmp = ft_strjoin(name, "=");
+		tmp = ft_strjoinfree(tmp, value, 1);
+		((t_env*)(elem->data))->env_complete = ft_strdup(tmp);
+		ft_strdel(&tmp);
+	}
 }
 
 t_list	*search_exist_value(t_list *env_var_list, char *name)
@@ -46,7 +67,8 @@ t_list	*search_exist_value(t_list *env_var_list, char *name)
 	t_list	*current;
 	char	*tmp;
 
-	current = env_var_list;
+	if (!(current = env_var_list))
+		return (NULL);
 	tmp = ((t_env*)(current->data))->env_name;
 	while (current && ft_strcmp(name, tmp))
 	{
@@ -69,6 +91,12 @@ int		cmd_set_env(t_list **env_var_list, t_list *arg_cmd)
 	if (!arg_cmd->next || !arg_cmd->next->next)
 		return (0);
 	name = arg_cmd->next->data;
+	if ((check_bad_char(name)))
+	{
+		ft_printf("{red}{bold}mini_shell: setenv: invalid name: {res}");
+		ft_putendl(name);
+		return (0);
+	}
 	value = arg_cmd->next->next->data;
 	current = search_exist_value(*env_var_list, name);
 	if (current)

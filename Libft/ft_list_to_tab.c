@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_list_space.c                              :+:      :+:    :+:   */
+/*   ft_list_to_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/10 18:15:02 by proso             #+#    #+#             */
-/*   Updated: 2017/04/10 18:16:03 by proso            ###   ########.fr       */
+/*   Created: 2017/04/26 11:12:34 by proso             #+#    #+#             */
+/*   Updated: 2017/04/26 11:12:36 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
 
-void	ft_print_list_space(t_list *begin_list)
+char	**ft_list_to_tab(t_list *begin_list)
 {
+	int		i;
+	char	**args;
 	t_list	*current;
 
+	if (!begin_list)
+		return (NULL);
+	i = ft_list_size(begin_list);
 	current = begin_list;
-	if (begin_list)
+	if (!(args = (char**)malloc(sizeof(char*) * (i + 1))))
+		return (NULL);
+	i = 0;
+	while (current)
 	{
-		while (current)
-		{
-			if (current->data)
-			{
-				ft_putstr(current->data);
-				write(1, " ", 1);
-			}
-			current = current->next;
-		}
+		args[i] = current->data;
+		current = current->next;
+		i++;
 	}
+	args[i] = NULL;
+	return (args);
 }

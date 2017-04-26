@@ -12,37 +12,48 @@
 
 #include "../Includes/mini_shell.h"
 
-char		*sub_var(char *str, t_list *env_var_list)
+void	loop(char *arg, int *i, int *dbl_quote)
 {
-	char	*name;
-	char	*tmp;
-	int		i;
-
-	i = 1;
-	while (str[i] && str[i] != ' ' && str[i] != '$' && str[i] != '"')
-		i++;
-	name = ft_strsub(str, 1, i - 1);
-	tmp = get_env_var(env_var_list, name);
-	ft_strdel(&name);
-	return (tmp);
+	while (arg[*i] && arg[*i] != '$' && arg[*i] != '"')
+	{
+		(*i)++;
+		if (arg[*i] == '"')
+			(*dbl_quote)++;
+	}
 }
 
-/*char		*use_dbl_quote(char *arg, t_list *env_var_list)
+void	init_var2(int *dbl_quote, int *j, int *i, char **tmp)
 {
-	int		i;
+	*dbl_quote = 0;
+	*j = *i;
+	(*i)++;
+	*tmp = NULL;
+}
+
+char	*use_dbl_quote(char *arg, int *i, t_list *env_var_list)
+{
+	int		dbl_quote;
 	int		j;
-	char	*str;
 	char	*tmp;
 
-	i = 0;
-	j = 0;
-	str = ft_str_new(ft_strlen(arg));
-	while (arg[i])
-	{
-		if (arg[i] == '$')
+	init_var2(&dbl_quote, &j, i, &tmp);
+	while (arg[*i] && arg[*i] != '"')
+		if (arg[*i] == '$')
 		{
-			tmp = sub_var(&(arg[i]), env_var_list);
-			str = ft_strjoinfree(str, tmp, 3);
+			tmp = ft_strjoinfree(tmp, use_dollard(arg, i, env_var_list), 3);
+			j = *i;
+			dbl_quote += (arg[*i] == '"') ? 1 : 0;
 		}
-	}
-}*/
+		else
+		{
+			loop(arg, i, &dbl_quote);
+			if (*i - j != 0)
+				tmp = ft_strjoinfree(tmp, ft_strsub(arg, j, (*i) - j), 3);
+		}
+	if (!(dbl_quote) && (j || !arg[*i]))
+		tmp = ft_strjoinfree(tmp, recursive_dbl_quote(env_var_list), 3);
+	if (arg[*i] == '"')
+		(*i)++;
+	tmp = ft_str_remove_c(tmp, '"');
+	return (tmp);
+}

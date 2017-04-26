@@ -21,9 +21,7 @@ int		ft_push_back(t_list **begin_list, void *str)
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (0);
 	if (!*begin_list)
-	{
 		*begin_list = new;
-	}
 	else
 	{
 		current = *begin_list;
