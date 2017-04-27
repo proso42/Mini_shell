@@ -57,10 +57,10 @@ void	find_cmd(char *cmd)
 
 void	exec(t_list *arg_cmd, t_list *env_var_list)
 {
-	char	**args;
-	char	**envp;
-	char	*path;
-	pid_t	pid;
+	char			**args;
+	char			**envp;
+	char			*path;
+	extern pid_t	pid;
 
 	args = NULL;
 	envp = NULL;

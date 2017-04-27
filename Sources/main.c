@@ -12,6 +12,8 @@
 
 #include "../Includes/mini_shell.h"
 
+pid_t	pid;
+
 void	print_prompt(void)
 {
 	char	buf[126];
@@ -38,7 +40,9 @@ int		main(void)
 	info.env_var_list = init_env();
 	info.cmd_list = init_cmd();
 	i = 0;
+	pid = -1;
 	print_entry();
+	init_signal();
 	while (1)
 	{
 		cmd = NULL;

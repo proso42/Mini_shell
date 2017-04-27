@@ -17,6 +17,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/dir.h>
+# include <signal.h>
 
 # define HOME "/Users/proso"
 
@@ -57,5 +58,6 @@ int		check_error(t_list *arg_cmd);
 char	*replace_tild(char *path);
 void	exec(t_list *arg_cmd, t_list *env_var_list);
 int		check_valid_cmd(char *cmd, t_list *env_var_list);
+void	init_signal(void);
 
 #endif

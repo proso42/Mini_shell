@@ -140,6 +140,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
 	@echo "\x1b[32m\x1b[1mLibrary created ✓✓✓\x1b[0m"
+
 clean:
 	@rm -rf $(OBJ)
 	@echo "\x1b[31m\x1b[1mAll objects deleted ✖\x1b[0m"
