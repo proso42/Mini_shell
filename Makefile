@@ -6,11 +6,11 @@
 #    By: proso <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/27 12:07:31 by proso             #+#    #+#              #
-#    Updated: 2017/04/27 12:07:34 by proso            ###   ########.fr        #
+#    Updated: 2017/04/29 15:09:26 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = mini_shell
+NAME = minishell
 
 SRC = Sources/builtin.c \
       Sources/check_path_error.c \
@@ -41,25 +41,27 @@ INCLUDE = Includes/mini_shell.h
 
 LIB = Libft/libft.a
 
+make_lib:
+	@make -C Libft/
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-make_lib:
-	@make -C Libft/
-	@sleep 2
-
 %.o:%.c
-	$(CC) $(FLAGS) -I./$(LIB) -o $@ -c $<
+	@$(CC) $(FLAGS) -I./$(LIB) -o $@ -c $<
 
 $(NAME): make_lib $(OBJ)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@echo "\x1b[32m\x1b[1mExecutable sucessfull created ✓\x1b[0m"
 
 clean:
+	@make clean -C Libft/
 	@rm -rf $(OBJ)
 	@echo "\x1b[31m\x1b[1mAll objects deleted ✖\x1b[0m"
 
 fclean: clean
+	@make fclean -C Libft/
 	@rm -rf $(NAME)
 	@echo "\x1b[31m\x1b[1mExecutable deleted ✖\x1b[0m"
 
