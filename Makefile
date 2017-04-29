@@ -41,11 +41,6 @@ INCLUDE = Includes/mini_shell.h
 
 LIB = Libft/libft.a
 
-make_lib:
-	@make -C Libft/
-	@echo "\x1b[33m\x1b[1mMaking sources... ⏳\x1b[0m"
-	@sleep 2
-
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
@@ -53,8 +48,14 @@ all: $(NAME)
 %.o:%.c
 	@$(CC) $(FLAGS) -I./$(LIB) -o $@ -c $<
 	@echo "$< \x1b[32m\x1b[1m✓\x1b[0m"
+	@Sources/p_bar_shell
 	@sleep 0.05
 	@clear
+
+make_lib:
+	@make -C Libft/
+	@echo "\x1b[33m\x1b[1mMaking sources... ⏳\x1b[0m"
+	@sleep 2
 
 $(NAME): make_lib $(OBJ)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIB)
