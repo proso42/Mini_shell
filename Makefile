@@ -6,7 +6,7 @@
 #    By: proso <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/27 12:07:31 by proso             #+#    #+#              #
-#    Updated: 2017/04/29 15:13:10 by proso            ###   ########.fr        #
+#    Updated: 2017/04/29 15:35:17 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,8 @@ LIB = Libft/libft.a
 
 make_lib:
 	@make -C Libft/
+	@echo "\x1b[33m\x1b[1mMaking sources... ⏳\x1b[0m"
+	@sleep 2
 
 OBJ = $(SRC:.c=.o)
 
@@ -50,6 +52,9 @@ all: $(NAME)
 
 %.o:%.c
 	@$(CC) $(FLAGS) -I./$(LIB) -o $@ -c $<
+	@echo "$< \x1b[32m\x1b[1m✓\x1b[0m"
+	@sleep 0.05
+	@clear
 
 $(NAME): make_lib $(OBJ)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIB)

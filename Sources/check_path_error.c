@@ -86,7 +86,7 @@ int		check_error(t_list *arg_cmd, t_list *env_var_list)
 										!ft_strcmp(arg_cmd->next->data, "-"))
 		return (0);
 	if (!(path = replace_tild(ft_strdup(arg_cmd->next->data), env_var_list)))
-		return (0);
+		return (2);
 	i = (path[0] == '/') ? 1 : 0;
 	while (path[i])
 	{

@@ -93,7 +93,10 @@ int		cmd_set_env(t_list **env_var_list, t_list *arg_cmd)
 	char	*value;
 
 	if (!arg_cmd->next || !arg_cmd->next->next)
+	{
+		ft_printf("{red}{bold}mini_shell: setenv: missing arguments{res}\n");
 		return (0);
+	}
 	name = arg_cmd->next->data;
 	if ((check_bad_char(name)))
 	{

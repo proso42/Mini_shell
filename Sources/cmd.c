@@ -88,6 +88,5 @@ int		get_cmd(t_info *info, char *cmd)
 		ft_printf("{red}{bold}mini_shell: command not found:{res} %s\n",
 				arg_cmd->data);
 	ft_remove_list(&arg_cmd);
-	ft_printf("ok\n");
 	return (1);
 }

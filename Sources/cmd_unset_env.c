@@ -46,8 +46,13 @@ int		cmd_unset_env(t_list **env_var_list, t_list *arg_cmd)
 	char	*name;
 
 	if (!arg_cmd->next)
+	{
+		ft_printf("{red}{bold}mini_shell: unsetenv: missing argument{res}\n");
 		return (0);
+	}
 	name = arg_cmd->next->data;
+	if (!(*env_var_list))
+		return (0);
 	current = *env_var_list;
 	tmp = ((t_env*)(current->data))->env_name;
 	while (current && ft_strcmp(tmp, name))
@@ -57,9 +62,8 @@ int		cmd_unset_env(t_list **env_var_list, t_list *arg_cmd)
 			tmp = ((t_env*)(current->data))->env_name;
 	}
 	if (!ft_strcmp(tmp, name))
-	{
 		del_elem(env_var_list, current);
-		return (1);
-	}
+	else
+		ft_putstr_color("mini_shell: unsetenv: unknow variable\n", C_RED);
 	return (0);
 }

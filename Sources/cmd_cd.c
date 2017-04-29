@@ -18,7 +18,11 @@ char	*replace_tild(char *path, t_list *env_var_list)
 	char	*home;
 
 	if (!(home = get_env_var(env_var_list, "HOME")))
+	{
+		ft_putstr_color("mini_shell: cd: missing home env variable\n", C_RED);
+		ft_strdel(&path);
 		return (NULL);
+	}
 	if (path[0] == '~')
 	{
 		new_path = ft_strjoinfree(home,
@@ -51,7 +55,7 @@ int		cmd_cd(t_list **env_var_list, t_list *arg_cmd)
 
 	tmp = NULL;
 	path = NULL;
-	if (check_error(arg_cmd, *env_var_list))
+	if ((check_error(arg_cmd, *env_var_list)) >= 1)
 		return (0);
 	if (!arg_cmd->next || !arg_cmd->next->data)
 		tmp = get_env_var(*env_var_list, "HOME");
@@ -63,7 +67,8 @@ int		cmd_cd(t_list **env_var_list, t_list *arg_cmd)
 		path = ft_strdup(tmp);
 	else
 		return (0);
-	path = replace_tild(path, *env_var_list);
+	if (!(path = replace_tild(path, *env_var_list)))
+		return (0);
 	change_current_dir(env_var_list, path);
 	ft_strdel(&path);
 	return (1);
