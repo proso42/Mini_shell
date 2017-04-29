@@ -52,7 +52,7 @@ int		cmd_unset_env(t_list **env_var_list, t_list *arg_cmd)
 	}
 	name = arg_cmd->next->data;
 	if (!(*env_var_list))
-		return (0);
+		return (-1);
 	current = *env_var_list;
 	tmp = ((t_env*)(current->data))->env_name;
 	while (current && ft_strcmp(tmp, name))

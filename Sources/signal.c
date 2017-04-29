@@ -15,12 +15,18 @@
 void	ft_kill_process(int sig)
 {
 	extern pid_t	g_pid;
+	char			buf[126];
 
 	if (g_pid > 0)
 	{
 		(void)sig;
 		kill(SIGKILL, g_pid);
 		g_pid = -1;
+	}
+	else
+	{
+		(void)sig;
+		ft_printf("\n{blue}{bold}%s $> {res}", getcwd(buf, 126));
 	}
 }
 

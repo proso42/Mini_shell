@@ -21,7 +21,10 @@ int		builtin(t_list *arg_cmd, t_list **env_var_list)
 	else if (!ft_strcmp(arg_cmd->data, "setenv"))
 		cmd_set_env(env_var_list, arg_cmd);
 	else if (!ft_strcmp(arg_cmd->data, "unsetenv"))
-		cmd_unset_env(env_var_list, arg_cmd);
+	{
+		if ((cmd_unset_env(env_var_list, arg_cmd)) == -1)
+			ft_putstr_color("mini_shell: unsetenv: unknow variable\n", C_RED);
+	}
 	else if (!ft_strcmp(arg_cmd->data, "echo"))
 		cmd_echo(*env_var_list, arg_cmd);
 	else if (!ft_strcmp(arg_cmd->data, "cd"))
