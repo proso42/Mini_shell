@@ -6,7 +6,7 @@
 #    By: proso <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/27 12:07:31 by proso             #+#    #+#              #
-#    Updated: 2017/04/29 15:09:26 by proso            ###   ########.fr        #
+#    Updated: 2017/04/29 15:13:10 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ all: $(NAME)
 
 $(NAME): make_lib $(OBJ)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIB)
-	@echo "\x1b[32m\x1b[1mExecutable sucessfull created ✓\x1b[0m"
+	@echo "\x1b[32m\x1b[1mExecutable sucessfully created ✓\x1b[0m"
 
 clean:
 	@make clean -C Libft/
