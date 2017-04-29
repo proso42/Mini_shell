@@ -12,7 +12,7 @@
 
 #include "Includes/libft.h"
 
-char	**ft_list_to_tab(t_list *begin_list)
+char	**ft_list_to_tab(t_list *begin_list, char *first)
 {
 	int		i;
 	char	**args;
@@ -21,11 +21,12 @@ char	**ft_list_to_tab(t_list *begin_list)
 	if (!begin_list)
 		return (NULL);
 	i = ft_list_size(begin_list);
-	current = begin_list;
-	if (!(args = (char**)malloc(sizeof(char*) * (i + 1))))
+	current = begin_list->next;
+	if (!(args = (char**)malloc(sizeof(char*) * (i + 2))))
 		return (NULL);
-	i = 0;
-	while (current)
+	args[0] = first;
+	i = 1;
+	while (current && current->data)
 	{
 		args[i] = current->data;
 		current = current->next;

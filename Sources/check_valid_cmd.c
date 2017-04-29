@@ -41,7 +41,7 @@ char	*get_next_path(int *i, int *j, char *env_path)
 	return (ft_strsub(env_path, *j, *i - *j));
 }
 
-int		check_relative_path(char *exe, t_list *env_var_list)
+int		check_relative_path(t_list **arg_cmd, t_list *env_var_list)
 {
 	char	*env_path;
 	char	*path;
@@ -54,11 +54,11 @@ int		check_relative_path(char *exe, t_list *env_var_list)
 	while (env_path[i])
 	{
 		path = get_next_path(&i, &j, env_path);
-		if ((search_exe(path, exe)))
+		if ((search_exe(path, (*arg_cmd)->data)))
 		{
 			env_path = ft_strjoin(path, "/");
-			env_path = ft_strjoinfree(env_path, exe, 3);
-			exe = ft_strdup(env_path);
+			env_path = ft_strjoinfree(env_path, (*arg_cmd)->data, 3);
+			(*arg_cmd)->data = ft_strdup(env_path);
 			ft_strdel(&env_path);
 			ft_strdel(&path);
 			return (1);
@@ -87,12 +87,12 @@ int		check_absolute_path(char *path)
 	return (ret);
 }
 
-int		check_valid_cmd(char *cmd, t_list *env_var_list)
+int		check_valid_cmd(t_list **arg_cmd, t_list *env_var_list)
 {
-	if (!cmd || cmd[0] == '\0')
+	if (!((*arg_cmd)->data) || (((char*)(*arg_cmd)->data)[0] == '\0'))
 		return (0);
-	else if (cmd[0] == '/')
-		return (check_absolute_path(cmd));
+	else if (((char*)(*arg_cmd)->data)[0] == '/')
+		return (check_absolute_path((*arg_cmd)->data));
 	else
-		return (check_relative_path(cmd, env_var_list));
+		return (check_relative_path(arg_cmd, env_var_list));
 }

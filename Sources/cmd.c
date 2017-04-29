@@ -82,11 +82,12 @@ int		get_cmd(t_info *info, char *cmd)
 		return (0);
 	if ((check_builtin(arg_cmd->data, info)))
 		builtin(arg_cmd, &(info->env_var_list));
-	else if (check_valid_cmd(arg_cmd->data, info->env_var_list))
+	else if (check_valid_cmd(&arg_cmd, info->env_var_list))
 		exec(arg_cmd, info->env_var_list);
 	else
 		ft_printf("{red}{bold}mini_shell: command not found:{res} %s\n",
 				arg_cmd->data);
 	ft_remove_list(&arg_cmd);
+	ft_printf("ok\n");
 	return (1);
 }

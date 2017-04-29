@@ -55,7 +55,7 @@ int		add_env_var(t_list **env_var_list, char *name, char *value);
 int		check_error(t_list *arg_cmd, t_list *env_var_list);
 char	*replace_tild(char *path, t_list *env_var_list);
 void	exec(t_list *arg_cmd, t_list *env_var_list);
-int		check_valid_cmd(char *cmd, t_list *env_var_list);
+int		check_valid_cmd(t_list **arg_cmd, t_list *env_var_list);
 void	init_signal(void);
 
 #endif

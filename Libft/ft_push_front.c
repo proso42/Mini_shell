@@ -12,16 +12,18 @@
 
 #include "Includes/libft.h"
 
-void	ft_push_front(t_list **begin_list, char *str)
+t_list	*ft_push_front(t_list **begin_list, char *str)
 {
 	t_list	*elem;
 
-	elem = NULL;
-	elem->data = ft_strdup(str);
+	if (!(elem = (t_list*)malloc(sizeof(t_list))))
+		return (NULL);
+	elem->data = str;
 	elem->size = (int)ft_strlen(str);
 	if (!*begin_list)
 		elem->next = NULL;
 	else
 		elem->next = *begin_list;
 	*begin_list = elem;
+	return (elem);
 }
