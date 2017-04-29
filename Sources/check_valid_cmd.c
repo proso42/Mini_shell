@@ -17,7 +17,8 @@ int		search_exe(char *path, char *exe)
 	DIR				*dirp;
 	struct dirent	*buf;
 
-	dirp = opendir(path);
+	if (!(dirp = opendir(path)))
+		return (0);
 	buf = readdir(dirp);
 	while (buf)
 	{

@@ -20,6 +20,8 @@ char    *ft_str_remove_c(char *str, char c)
 
     i = 0;
     j = 0;
+    if (!str)
+        return (NULL);
     tmp = ft_strnew(ft_strlen(str));
     if (c > 0)
     {

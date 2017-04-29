@@ -16,10 +16,16 @@ void	pass_no_whitespace(char *cmd, int *i)
 {
 	while (!(ft_is_whitespace(cmd[*i])) && cmd[*i])
 	{
-		if (cmd[*i] == '"')
+		if (cmd[*i] == '\"')
 		{
 			(*i)++;
-			while (cmd[*i] != '"' && cmd[*i])
+			while (cmd[*i] != '\"' && cmd[*i])
+				(*i)++;
+		}
+		else if (cmd[*i] == '\'')
+		{
+			(*i)++;
+			while (cmd[*i] != '\'' && cmd[*i])
 				(*i)++;
 		}
 		if (cmd[*i])

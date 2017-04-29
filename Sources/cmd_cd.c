@@ -12,13 +12,16 @@
 
 #include "../Includes/mini_shell.h"
 
-char	*replace_tild(char *path)
+char	*replace_tild(char *path, t_list *env_var_list)
 {
 	char	*new_path;
+	char	*home;
 
+	if (!(home = get_env_var(env_var_list, "HOME")))
+		return (NULL);
 	if (path[0] == '~')
 	{
-		new_path = ft_strjoinfree(HOME,
+		new_path = ft_strjoinfree(home,
 									ft_strsub(path, 1, ft_strlen(path) - 1), 2);
 		ft_strdel(&path);
 		return (new_path);
@@ -48,19 +51,19 @@ int		cmd_cd(t_list **env_var_list, t_list *arg_cmd)
 
 	tmp = NULL;
 	path = NULL;
-	if (check_error(arg_cmd))
+	if (check_error(arg_cmd, *env_var_list))
 		return (0);
 	if (!arg_cmd->next || !arg_cmd->next->data)
-		path = ft_strdup(HOME);
+		tmp = get_env_var(*env_var_list, "HOME");
 	else if (!(ft_strcmp(arg_cmd->next->data, "-")))
 		tmp = get_env_var(*env_var_list, "OLDPWD");
 	else
 		tmp = (arg_cmd->next->data);
-	if (tmp && !path)
+	if (tmp)
 		path = ft_strdup(tmp);
-	else if (!tmp && !path)
+	else
 		return (0);
-	path = replace_tild(path);
+	path = replace_tild(path, *env_var_list);
 	change_current_dir(env_var_list, path);
 	ft_strdel(&path);
 	return (1);

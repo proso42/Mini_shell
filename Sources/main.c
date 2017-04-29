@@ -12,7 +12,7 @@
 
 #include "../Includes/mini_shell.h"
 
-pid_t	pid;
+pid_t	g_pid;
 
 void	print_prompt(void)
 {
@@ -40,7 +40,7 @@ int		main(void)
 	info.env_var_list = init_env();
 	info.cmd_list = init_cmd();
 	i = 0;
-	pid = -1;
+	g_pid = -1;
 	print_entry();
 	init_signal();
 	while (1)

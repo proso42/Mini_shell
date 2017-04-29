@@ -12,15 +12,15 @@
 
 #include "../Includes/mini_shell.h"
 
-extern pid_t	pid;
-
 void	ft_kill_process(int sig)
 {
-	if (pid > 0)
+	extern pid_t	g_pid;
+
+	if (g_pid > 0)
 	{
 		(void)sig;
-		kill(SIGKILL, pid);
-		pid = -1;
+		kill(SIGKILL, g_pid);
+		g_pid = -1;
 	}
 }
 

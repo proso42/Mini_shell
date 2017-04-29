@@ -77,7 +77,7 @@ int		check_directory(int i, char *path)
 	return (1);
 }
 
-int		check_error(t_list *arg_cmd)
+int		check_error(t_list *arg_cmd, t_list *env_var_list)
 {
 	int			i;
 	char		*path;
@@ -85,7 +85,8 @@ int		check_error(t_list *arg_cmd)
 	if (!arg_cmd->next || !arg_cmd->next->data ||
 										!ft_strcmp(arg_cmd->next->data, "-"))
 		return (0);
-	path = replace_tild(ft_strdup(arg_cmd->next->data));
+	if (!(path = replace_tild(ft_strdup(arg_cmd->next->data), env_var_list)))
+		return (0);
 	i = (path[0] == '/') ? 1 : 0;
 	while (path[i])
 	{

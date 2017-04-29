@@ -19,8 +19,6 @@
 # include <sys/dir.h>
 # include <signal.h>
 
-# define HOME "/Users/proso"
-
 typedef struct	s_env
 {
 	char		*env_complete;
@@ -54,8 +52,8 @@ void	edit_env_var(t_list *elem, char *name, char *value);
 t_list	*get_pwd(t_list *env_var_list);
 t_list	*get_oldpwd(t_list *env_var_list);
 int		add_env_var(t_list **env_var_list, char *name, char *value);
-int		check_error(t_list *arg_cmd);
-char	*replace_tild(char *path);
+int		check_error(t_list *arg_cmd, t_list *env_var_list);
+char	*replace_tild(char *path, t_list *env_var_list);
 void	exec(t_list *arg_cmd, t_list *env_var_list);
 int		check_valid_cmd(char *cmd, t_list *env_var_list);
 void	init_signal(void);

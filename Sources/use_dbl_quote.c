@@ -22,12 +22,21 @@ void	loop(char *arg, int *i, int *dbl_quote)
 	}
 }
 
-void	init_var2(int *dbl_quote, int *j, int *i, char **tmp)
+void	init_var2(int *dbl_quote, int *j, int *i, char *arg)
 {
-	*dbl_quote = 0;
 	*j = *i;
+	*dbl_quote = 1;
 	(*i)++;
-	*tmp = NULL;
+	if (arg[*i] == '\"')
+	{
+		(*dbl_quote)++;
+		(*i)++;
+		while (arg[*i] == '\"' && arg[*i])
+		{
+			(*i)++;
+			(*dbl_quote)++;
+		}
+	}
 }
 
 char	*use_dbl_quote(char *arg, int *i, t_list *env_var_list)
@@ -36,7 +45,8 @@ char	*use_dbl_quote(char *arg, int *i, t_list *env_var_list)
 	int		j;
 	char	*tmp;
 
-	init_var2(&dbl_quote, &j, i, &tmp);
+	init_var2(&dbl_quote, &j, i, arg);
+	tmp = NULL;
 	while (arg[*i] && arg[*i] != '"')
 		if (arg[*i] == '$')
 		{
@@ -50,7 +60,7 @@ char	*use_dbl_quote(char *arg, int *i, t_list *env_var_list)
 			if (*i - j != 0)
 				tmp = ft_strjoinfree(tmp, ft_strsub(arg, j, (*i) - j), 3);
 		}
-	if (!(dbl_quote) && (j || !arg[*i]))
+	if ((dbl_quote % 2) && (j || !arg[*i]))
 		tmp = ft_strjoinfree(tmp, recursive_dbl_quote(env_var_list), 3);
 	if (arg[*i] == '"')
 		(*i)++;

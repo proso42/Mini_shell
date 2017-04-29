@@ -52,6 +52,10 @@ void	edit_env_var(t_list *elem, char *name, char *value)
 
 	if (elem && value)
 	{
+		if (value[0] == '\"' && value[ft_strlen(value) - 1] == '\"')
+			value = ft_str_remove_c(value, '\"');
+		else if (value[0] == '\'' && value[ft_strlen(value) - 1] == '\'')
+			value = ft_str_remove_c(value, '\'');
 		ft_strdel(&(((t_env*)(elem->data))->env_value));
 		ft_strdel(&(((t_env*)(elem->data))->env_complete));
 		((t_env*)(elem->data))->env_value = ft_strdup(value);
