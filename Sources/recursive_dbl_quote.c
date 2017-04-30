@@ -12,6 +12,8 @@
 
 #include "../Includes/mini_shell.h"
 
+extern pid_t	g_pid;
+
 void	loop_1(int *j, char *tmp, char *dol)
 {
 	int		k;
@@ -66,6 +68,7 @@ char	*recursive_dbl_quote(t_list *env_var_list)
 	dbl_quote = 1;
 	while ((dbl_quote % 2))
 	{
+		g_pid = -2;
 		ft_putstr("dquote> ");
 		rep = ft_strnew(1024);
 		read(0, rep, 1024);
@@ -73,13 +76,11 @@ char	*recursive_dbl_quote(t_list *env_var_list)
 		rep = transform(rep, env_var_list);
 		i = 0;
 		while (rep[i])
-		{
-			dbl_quote += (rep[i] == '"') ? 1 : 0;
-			i++;
-		}
+			dbl_quote += (rep[i++] == '"') ? 1 : 0;
 		rep = (dbl_quote > 1) ? ft_str_remove_c(rep, '"') : rep;
 		tmp = ft_strjoinfree(tmp, "\n", 1);
 		tmp = ft_strjoinfree(tmp, rep, 3);
 	}
+	g_pid = -1;
 	return (tmp);
 }

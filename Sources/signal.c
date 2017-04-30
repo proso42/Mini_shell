@@ -23,11 +23,13 @@ void	ft_kill_process(int sig)
 		kill(SIGKILL, g_pid);
 		g_pid = -1;
 	}
-	else
+	else if (g_pid != -2)
 	{
 		(void)sig;
 		ft_printf("\n{blue}{bold}%s $> {res}", getcwd(buf, 126));
 	}
+	else
+		(void)sig;
 }
 
 void	ft_ignore_sig(int sig)

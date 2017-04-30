@@ -12,11 +12,14 @@
 
 #include "../Includes/mini_shell.h"
 
+extern pid_t	g_pid;
+
 void	init_var(char **tmp, char **rep, int *quote)
 {
 	*rep = NULL;
 	*tmp = NULL;
 	*quote = 1;
+	g_pid = -2;
 }
 
 char	*recursive_quote(void)
@@ -33,10 +36,7 @@ char	*recursive_quote(void)
 		get_next_line(0, &rep);
 		i = 0;
 		while (rep[i])
-		{
-			quote += (rep[i] == '\'') ? 1 : 0;
-			i++;
-		}
+			quote += (rep[i++] == '\'') ? 1 : 0;
 		if (quote > 1)
 			rep = ft_str_remove_c(rep, '\'');
 		if (tmp)
@@ -45,5 +45,6 @@ char	*recursive_quote(void)
 			tmp = ft_strdup("\n");
 		tmp = ft_strjoinfree(tmp, rep, 3);
 	}
+	g_pid = -1;
 	return (tmp);
 }
