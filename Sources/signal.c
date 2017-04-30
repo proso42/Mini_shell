@@ -32,10 +32,7 @@ void	ft_kill_process(int sig)
 
 void	ft_ignore_sig(int sig)
 {
-	char	buf[126];
-
 	(void)sig;
-	ft_printf("\n{blue}{bold}%s $> {res}", getcwd(buf, 126));
 }
 
 void	init_signal(void)
