@@ -93,6 +93,8 @@ int		check_valid_cmd(t_list **arg_cmd, t_list *env_var_list)
 		return (0);
 	else if (((char*)(*arg_cmd)->data)[0] == '/')
 		return (check_absolute_path((*arg_cmd)->data));
+	else if (((char*)(*arg_cmd)->data)[0] == '.')
+		return (check_local_path((*arg_cmd)->data));
 	else
 		return (check_relative_path(arg_cmd, env_var_list));
 }

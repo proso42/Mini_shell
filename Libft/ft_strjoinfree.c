@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -21,7 +20,7 @@ char	*ft_strjoinfree(char const *s1, char const *s2, int mode)
 		return (NULL);
 	if (s1 == NULL || s2 == NULL)
 	{
-		str = (s1) ? ft_strdup (s1) : ft_strdup(s2);
+		str = (s1) ? ft_strdup(s1) : ft_strdup(s2);
 		((mode == 1 || mode > 2) ? ft_strdel((char**)&s1) : 0);
 		if (mode >= 2)
 			ft_strdel((char**)&s2);

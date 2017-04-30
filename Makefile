@@ -6,13 +6,14 @@
 #    By: proso <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/27 12:07:31 by proso             #+#    #+#              #
-#    Updated: 2017/04/29 15:35:17 by proso            ###   ########.fr        #
+#    Updated: 2017/04/30 16:07:33 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC = Sources/builtin.c \
+	  Sources/check_local_path.c\
       Sources/check_path_error.c \
 	  Sources/check_valid_cmd.c \
 	  Sources/cmd_cd.c \
@@ -54,11 +55,11 @@ all: $(NAME)
 
 make_lib:
 	@make -C Libft/
-	@echo "\x1b[33m\x1b[1mMaking sources... ⏳\x1b[0m"
+	@echo "\x1b[33m\x1b[1mMaking executable... ⏳\x1b[0m"
 	@sleep 2
 
 $(NAME): make_lib $(OBJ)
-	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) $(LIB)
+	@$(CC) $(FLAGS) -o $(NAME) $(LIB) $(OBJ)
 	@echo "\x1b[32m\x1b[1mExecutable sucessfully created ✓\x1b[0m"
 
 clean:

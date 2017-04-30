@@ -77,15 +77,24 @@ int		check_builtin(char *cmd, t_info *info)
 int		get_cmd(t_info *info, char *cmd)
 {
 	t_list	*arg_cmd;
+	int		ret;
 
 	if (!(arg_cmd = get_arg_cmd(cmd)))
 		return (0);
 	if ((check_builtin(arg_cmd->data, info)))
 		builtin(arg_cmd, &(info->env_var_list));
-	else if (check_valid_cmd(&arg_cmd, info->env_var_list))
-		exec(arg_cmd, info->env_var_list);
+	else if ((ret = check_valid_cmd(&arg_cmd, info->env_var_list)) >= -1)
+	{
+		if (ret == -1)
+		{
+			ft_printf("{red}{bold}mini_shell: %s:", arg_cmd->data);
+			ft_printf(" No such file or directory{res}\n");
+		}
+		else
+			exec(arg_cmd, info->env_var_list);
+	}
 	else
-		ft_printf("{red}{bold}mini_shell: command not found:{res} %s\n",
+		ft_printf("{red}{bold}mini_shell: Command not found:{res} %s\n",
 				arg_cmd->data);
 	ft_remove_list(&arg_cmd);
 	return (1);

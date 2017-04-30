@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   check_local_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/25 09:34:04 by proso             #+#    #+#             */
-/*   Updated: 2017/04/08 12:49:38 by proso            ###   ########.fr       */
+/*   Created: 2017/04/30 02:52:18 by proso             #+#    #+#             */
+/*   Updated: 2017/04/30 02:52:20 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/libft.h"
+#include "../Includes/mini_shell.h"
 
-void	ft_clear_elem(t_list **begin_list, t_list *elem)
+int		check_local_path(char *path)
 {
-	t_list	*current;
+	int		i;
+	int		ok;
 
-	current = NULL;
-	if (*begin_list)
+	i = (path[1] == '/') ? 2 : 1;
+	ok = 0;
+	if (path[i] == '/')
 	{
-		if (*begin_list != elem)
-		{
-			current = *begin_list;
-			while (current->next != elem)
-				current = current->next;
-			current->next = elem->next;
-		}
-		ft_strdel((char**)&elem->data);
-		elem->size = 0;
-		elem->next = NULL;
+		path[i] = '\0';
+		ok = 1;
 	}
+	if ((access(path, F_OK)))
+		return (-1);
+	if (ok)
+		path[i] = '/';
+	return (0);
 }

@@ -12,8 +12,6 @@
 
 #include "../Includes/mini_shell.h"
 
-//oklm
-
 int		is_bad_char(char c)
 {
 	return (c != '_' && !ft_isdigit(c) && !ft_isalpha(c));

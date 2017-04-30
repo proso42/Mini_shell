@@ -43,7 +43,7 @@ int		check_permission(int i, char *path)
 		path[i] = '\0';
 		ok = 1;
 	}
-	if ((access(path, R_OK)))
+	if ((access(path, X_OK)))
 	{
 		ft_printf("{red}{bold}mini_shell: cd: Permission denied{res}\n");
 		ft_strdel(&path);
@@ -77,16 +77,17 @@ int		check_directory(int i, char *path)
 	return (1);
 }
 
-int		check_error(t_list *arg_cmd, t_list *env_var_list)
+int		check_error(t_list *arg_cmd, t_list *ev_list)
 {
 	int			i;
 	char		*path;
 
-	if (!arg_cmd->next || !arg_cmd->next->data ||
-										!ft_strcmp(arg_cmd->next->data, "-"))
+	if (!arg_cmd->next || !ft_strcmp(arg_cmd->next->data, "-"))
 		return (0);
-	if (!(path = replace_tild(ft_strdup(arg_cmd->next->data), env_var_list)))
-		return (2);
+	if (!(ft_strchr(arg_cmd->next->data, '~')))
+		path = ft_strdup(arg_cmd->next->data);
+	else if (!(path = replace_tild(ft_strdup(arg_cmd->next->data), ev_list)))
+		return (1);
 	i = (path[0] == '/') ? 1 : 0;
 	while (path[i])
 	{
